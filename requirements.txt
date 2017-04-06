@@ -1,0 +1,10 @@
+git+https://github.com/biosustain/venom.git@feat/openapi#egg=venom
+
+
+requests
+codecov
+aiohttp
+nose
+gunicorn
+six
+pytest-cov==2.4.0
