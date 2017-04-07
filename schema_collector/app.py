@@ -7,9 +7,7 @@ from venom.rpc.comms.aiohttp import create_app, Client
 from venom.rpc.method import http
 from venom.rpc.reflect.openapi import make_openapi_schema
 from venom.rpc.reflect.service import ReflectService
-from venom.rpc.reflect.stubs import OpenAPISchema, InfoMessage, \
-    OperationMessage, ResponseMessage, ResponsesMessage, \
-    ParameterMessage, SchemaMessage, ReflectStub
+from venom.rpc.reflect.stubs import OpenAPISchema, InfoMessage, ReflectStub
 
 
 def collect_schemas(current, *schemas):
@@ -37,7 +35,7 @@ class SchemaCollectorStub(Stub):
 
 async def fetch_schema(url):
     client = Client(ReflectStub, url)
-    return await client.invoke(ReflectStub.get_openapi_schema, Empty())
+    return await client.get_openapi_schema(Empty())
 
 class SchemaCollectorService(Service):
     class Meta:
@@ -46,8 +44,12 @@ class SchemaCollectorService(Service):
 
     @http.GET('./openapi.json')
     async def get_openapi_schema(self) -> OpenAPISchema:
-        current = make_openapi_schema(venom.get_instance(ReflectService).reflect)
-        schemas = await asyncio.gather(*[fetch_schema(url) for url in os.environ['TO_COLLECT'].split(',')])
+        current = make_openapi_schema(
+            venom.get_instance(ReflectService).reflect
+        )
+        schemas = await asyncio.gather(
+            *[fetch_schema(url) for url in os.environ['TO_COLLECT'].split(',')]
+        )
         return collect_schemas(current, *schemas)
 
 
