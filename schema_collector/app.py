@@ -42,7 +42,7 @@ class SchemaCollectorService(Service):
         name = 'schema'
         stub = SchemaCollectorStub
 
-    @http.GET('./openapi.json')
+    @http.GET('/openapi.json')
     async def get_openapi_schema(self) -> OpenAPISchema:
         current = make_openapi_schema(
             venom.get_instance(ReflectService).reflect
