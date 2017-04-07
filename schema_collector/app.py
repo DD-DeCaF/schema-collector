@@ -1,6 +1,7 @@
 from aiohttp import web
 import os
 import asyncio
+import aiohttp_cors
 from venom import Empty
 from venom.rpc import Service, Venom, Stub
 from venom.rpc.comms.aiohttp import create_app, Client
@@ -58,6 +59,19 @@ venom.add(SchemaCollectorService)
 venom.add(ReflectService)
 
 app = create_app(venom)
+
+# Configure default CORS settings.
+cors = aiohttp_cors.setup(app, defaults={
+    "*": aiohttp_cors.ResourceOptions(
+        allow_credentials=True,
+        expose_headers="*",
+        allow_headers="*",
+    )
+})
+
+# Configure CORS on all routes.
+for route in list(app.router.routes()):
+    cors.add(route)
 
 if __name__ == '__main__':
     web.run_app(app)
