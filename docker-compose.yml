@@ -7,3 +7,5 @@ web:
     - PYTHONUNBUFFERED=1
     - PYTHONASYNCIODEBUG=1
     - TO_COLLECT=http://10.16.70.162
+    - HOST=api.dd-decaf.eu
+    - BASE_URL=/

@@ -16,6 +16,9 @@ def collect_schemas(current, *schemas):
         swagger='2.0',
         consumes=['application/json'],
         produces=['application/json'],
+        schemes=['https'],
+        host=os.environ.get('HOST'),
+        base_url=os.environ.get('BASE_URL'),
         info=InfoMessage(
             version=current.info.version,
             title=current.info.title,
