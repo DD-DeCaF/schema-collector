@@ -19,7 +19,7 @@ def collect_schemas(current, *schemas):
         produces=['application/json'],
         schemes=['https'],
         host=os.environ.get('HOST'),
-        base_url=os.environ.get('BASE_URL'),
+        base_path=os.environ.get('BASE_URL'),
         tags=[t for s in schemas for t in s.tags] +
              [TagMessage(
                  name=f'{s.info.title}-{s.info.version}',
