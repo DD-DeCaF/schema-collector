@@ -1,4 +1,4 @@
-git+https://github.com/biosustain/venom.git@feat/tags#egg=venom
+venom==1.0.0a6
 aiohttp_cors
 requests
 codecov
