@@ -11,6 +11,8 @@ from venom.rpc.reflect.service import ReflectService
 from venom.rpc.reflect.stubs import OpenAPISchema, InfoMessage, ReflectStub, \
     TagMessage
 
+from .middleware import raven_middleware
+
 
 def collect_schemas(current, *schemas):
     return OpenAPISchema(
@@ -79,7 +81,7 @@ venom = Venom()
 venom.add(SchemaCollectorService)
 venom.add(ReflectService)
 
-app = create_app(venom)
+app = create_app(venom, web.Application(middlewares=[raven_middleware]))
 
 # Configure default CORS settings.
 cors = aiohttp_cors.setup(app, defaults={
