@@ -1,11 +1,36 @@
-web:
-  build: .
-  dockerfile: Dockerfile
-  ports:
-    - 7500:7500
-  environment:
-    - PYTHONUNBUFFERED=1
-    - PYTHONASYNCIODEBUG=1
-    - TO_COLLECT=http://10.16.70.162
-    - HOST=api.dd-decaf.eu
-    - BASE_URL=/
+version: "3.1"
+services:
+  web:
+    image: swaggerapi/swagger-ui
+    networks:
+      default:
+      DD-DeCaF:
+        aliases:
+          - schema-collector
+    ports:
+      - "80:8080"
+    depends_on:
+      - api
+    environment:
+      - API_URL=http://localhost:8900/openapi.json
+
+  api:
+    build: .
+    image: gcr.io/dd-decaf-cfbf6/schema-collector:${IMAGE_TAG:-latest}
+    networks:
+      default:
+      DD-DeCaF:
+        aliases:
+          - schema-collector
+    ports:
+      - "8900:8900"
+    volumes:
+      - ".:/app"
+    environment:
+      - PYTHONASYNCIODEBUG=1
+      - TO_COLLECT=http://iam:8000
+      - HOST=api.dd-decaf.eu
+
+networks:
+  DD-DeCaF:
+    external: true
