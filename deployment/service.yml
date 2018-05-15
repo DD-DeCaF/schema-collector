@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: apidocs-production
+  annotations:
+    prometheus.io/probe: "true"
+spec:
+  selector:
+    app: apidocs
+    env: production
+  ports:
+  - name: web
+    protocol: TCP
+    port: 80
+    targetPort: 8080
+  - name: schema
+    protocol: TCP
+    port: 8900
+    targetPort: 8900

@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: apidocs
+spec:
+  tls:
+  - hosts:
+    - docs.dd-decaf.eu
+    secretName: decaf-tls
+  rules:
+  - host: docs.dd-decaf.eu
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: apidocs-production
+          servicePort: 80
+      - path: /openapi.json
+        backend:
+          serviceName: apidocs-production
+          servicePort: 8900

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apidocs-production
+spec:
+  selector:
+    matchLabels:
+      app: apidocs
+      env: production
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: apidocs
+        env: production
+    spec:
+      containers:
+      - name: swagger
+        image: swaggerapi/swagger-ui
+        ports:
+        - containerPort: 8080
+        env:
+        - name: API_URL
+          value: "https://docs.dd-decaf.eu/openapi.json"
+      - name: schema-collector
+        image: gcr.io/dd-decaf-cfbf6/schema-collector:master
+        ports:
+        - containerPort: 8900
+        env:
+        - name: PYTHONASYNCIODEBUG
+          value: "1"
+        - name: HOST
+          value: api.dd-decaf.eu
+        - name: TO_COLLECT
+          value: http://id-mapper-production,http://iloop-to-model-production,http://gene-to-reactions-production,http://iam/iam
+        command: ["gunicorn", "-w", "1", "-b", "0.0.0.0:8900", "-t", "20", "-k", "aiohttp.worker.GunicornWebWorker", "schema_collector.app:app"]
