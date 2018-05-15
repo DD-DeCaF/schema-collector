@@ -2,9 +2,10 @@ venom==1.0.0a6
 aiohttp_cors
 requests
 codecov
-aiohttp
+aiohttp==2.3.7
 nose
-gunicorn
+gunicorn==19.7.1
 six
 pytest-cov==2.4.0
 raven==6.4.0
+yarl==0.17.0
