@@ -23,4 +23,4 @@ else
   exit 0
 fi
 
-kubectl set image deployment/${DEPLOYMENT} web=${IMAGE_REPO}:${TRAVIS_COMMIT::12}
+kubectl set image deployment/${DEPLOYMENT} schema-collector=${IMAGE_REPO}:${TRAVIS_COMMIT::12}
