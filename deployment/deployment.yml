@@ -44,5 +44,5 @@ spec:
         - name: HOST
           value: api.dd-decaf.eu
         - name: TO_COLLECT
-          value: http://id-mapper-production,http://iloop-to-model-production,http://gene-to-reactions-production,http://iam/iam
+          value: http://id-mapper-production,http://iloop-to-model-production,http://gene-to-reactions-production,http://iam-production/iam
         command: ["gunicorn", "-w", "1", "-b", "0.0.0.0:8900", "-t", "20", "-k", "aiohttp.worker.GunicornWebWorker", "schema_collector.app:app"]
