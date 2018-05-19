@@ -21,7 +21,7 @@ spec:
         - containerPort: 8080
         env:
         - name: API_URL
-          value: "https://docs.dd-decaf.eu/openapi.json"
+          value: "https://api.dd-decaf.eu/openapi.json"
         resources:
           requests:
             cpu: "1m"
