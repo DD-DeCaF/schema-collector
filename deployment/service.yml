@@ -2,8 +2,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: apidocs-production
-  annotations:
-    prometheus.io/probe: "true"
 spec:
   selector:
     app: apidocs
