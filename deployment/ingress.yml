@@ -19,3 +19,25 @@ spec:
         backend:
           serviceName: apidocs-production
           servicePort: 8900
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: docs-to-api-redirect
+  annotations:
+    nginx.ingress.kubernetes.io/permanent-redirect: https://api.dd-decaf.eu
+spec:
+  tls:
+  - hosts:
+    - docs.dd-decaf.eu
+    secretName: decaf-tls
+  rules:
+  - host: docs.dd-decaf.eu
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: apidocs-production
+          servicePort: 80
