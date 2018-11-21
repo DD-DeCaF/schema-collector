@@ -8,7 +8,6 @@ spec:
   tls:
   - hosts:
     - api.dd-decaf.eu
-    - api-staging.dd-decaf.eu
     secretName: decaf-tls
   rules:
   - host: api.dd-decaf.eu
@@ -21,17 +20,6 @@ spec:
       - path: /openapi.json
         backend:
           serviceName: apidocs-production
-          servicePort: 8900
-  - host: api-staging.dd-decaf.eu
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: apidocs-staging
-          servicePort: 80
-      - path: /openapi.json
-        backend:
-          serviceName: apidocs-staging
           servicePort: 8900
 
 ---
