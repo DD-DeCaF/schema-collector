@@ -23,17 +23,15 @@ spec:
         - name: API_URL
           value: "https://api.dd-decaf.eu/openapi.json"
         resources:
-          limits:
-            cpu: "1000m"
-            memory: "128Mi"
+          requests:
+            cpu: "0"
       - name: schema-collector
         image: gcr.io/dd-decaf-cfbf6/schema-collector:master
         ports:
         - containerPort: 8900
         resources:
-          limits:
-            cpu: "1000m"
-            memory: "128Mi"
+          requests:
+            cpu: "0"
         env:
         - name: PYTHONASYNCIODEBUG
           value: "1"
